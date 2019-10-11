@@ -1,4 +1,4 @@
-package webEngineering.webEngineering.project.taquin;
+package webEngineering.application.project.taquin;
 
 import java.util.Comparator;
 

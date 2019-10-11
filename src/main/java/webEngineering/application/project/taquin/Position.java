@@ -1,4 +1,4 @@
-package webEngineering.webEngineering.project.taquin;
+package webEngineering.application.project.taquin;
 
 public class Position {
 	

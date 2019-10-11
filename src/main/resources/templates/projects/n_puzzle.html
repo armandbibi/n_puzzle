@@ -1,0 +1,260 @@
+<th:block th:fragment="view">
+    <div class="row">
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-header card-header-tabs card-header-warning">
+                    <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+                            <span class="nav-tabs-title">Information:</span>
+                            <ul class="nav nav-tabs" data-tabs="tabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" href="#profile" data-toggle="tab">
+                                        <i class="material-icons">build</i> Options
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                                <li class="nav-item run_puzzle">
+                                    <a class="nav-link " href="#profile" data-toggle="tab">
+                                        <i  class="material-icons run_puzzle">play_circle_outline</i> run
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#messages" data-toggle="tab">
+                                        <i class="material-icons">thumb_up</i> buid results
+                                        <div class="ripple-container"></div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <form action="#">
+                <div class="card-body">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="profile">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>Algorythm</td>
+                                    <td class="td-actions text-right">
+                                        <div class="nav-item dropdown">
+                                            <a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button type="button" rel="tooltip" title="Edit Task"
+                                                        class="btn btn-lg btn-white">
+                                                    <i class="" id="form_algorythm">A star</i>
+                                                </button>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" href="javascript:void(0)">A star</a>
+                                                <a class="dropdown-item" href="javascript:void(0)">BFS</a>
+                                                <a class="dropdown-item" href="javascript:void(0)">BFS
+                                                https://algorithmsinsight.wordpress.com/graph-theory-2/ida-star-algorithm-in-general/
+                                                </a>
+                                                <a class="dropdown-item" href="javascript:void(0)">Greedy search</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>Heuristic</td>
+                                    <td class="td-actions text-right">
+                                        <div class="nav-item dropdown">
+                                            <a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button type="button" rel="tooltip" title="Edit Task"
+                                                        class="btn btn-lg btn-white">
+                                                    <i id="form_heuristic" class="">Manhattan distance</i>
+                                                </button>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" href="javascript:void(0)">Manhattan distance</a>
+                                                <a class="dropdown-item" href="javascript:void(0)">Misplaced tiles</a>
+                                                <a class="dropdown-item" href="javascript:void(0)">P&LCF</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        Solution
+                                    </td>
+                                    <td class="td-actions text-right">
+                                        <div class="nav-item dropdown">
+                                            <a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button type="button" rel="tooltip" title="Edit Task"
+                                                        class="btn btn-lg btn-white">
+                                                    <i id="form_solution" class="">snail</i>
+                                                </button>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" href="javascript:void(0)">snail</a>
+                                                <a class="dropdown-item" href="javascript:void(0)">sorted</a>
+                                                <a class="dropdown-item" href="javascript:void(0)">reverse snail</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                    </td>
+                                    <td>
+                                        Complexity
+                                    </td>
+                                    <td class="td-actions text-right">
+                                        <div class="nav-item dropdown">
+                                            <a class="nav-link" href="javscript:void(0)" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <button type="button" rel="tooltip" title="Edit Task"
+                                                        class="btn btn-lg btn-white">
+                                                    <i id="form_dimension"class="">4</i>
+                                                </button>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" href="javascript:void(0)">2</a>
+                                                <a class="dropdown-item" href="javascript:void(0)">3</a>
+                                                <a class="dropdown-item" href="javascript:void(0)">4</a>
+                                                <a class="dropdown-item" href="javascript:void(0)">5</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="tab-pane" id="messages">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value="" checked>
+                                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                  </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        total count of board stocked in memory at the same time: <span
+                                            class="text-success"> 2300</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" value="">
+                                                <span class="form-check-sign">
+                                    <span class="check"></span>
+                                  </span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>total board created in memory during the run: <span
+                                            class="text-success">12000</span></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">n-Puzzle</h4>
+                    <p class="card-category">Solve it better than a 60-year-old drunkard</p>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Summary</h4>
+                    <p class="card-category">
+                        The goal of this project is to solve the N-puzzle ("taquin" in French) game using the A*
+                        search algorithm or one of its variants.
+                    </p>
+                    <p>
+                        You start with a square board made up of N*N cells. One of these cells will be empty,
+                        the others will contain numbers, starting from 1, that will be unique in this instance of
+                        the puzzle.
+                    </p>
+                    <p>
+                        Your search algorithm will have to find a valid sequence of moves in order to reach the
+                        final state, a.k.a the "snail solution", which depends on the size of the puzzle (Example
+                        below). While there will be no direct evaluation of its performance in this instance of the
+                        project, it has to have at least a vaguely reasonable perfomance : Taking a few second to
+                        solve a 3-puzzle is pushing it, ten seconds is unacceptable.
+                    </p>
+                    <p>
+                        The only move one can do in the N-puzzle is to swap the empty cell with one of its
+                        neighbors (No diagonals, of course. Imagine you’re sliding a block with a number on it
+                        towards an empty space).
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-4 col-lg-12">
+            <div class="card card-chart">
+                <div class="card-header card-header-success">
+
+                    <div class="ct-chart" id="originalBoard">
+                    </div>
+
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Original Board</h4>
+                    <p class="card-category">
+                        <span class="text-success"><i class="material-icons">shuffle</i> Shuffle </span> the board.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">access_time</i>Ready
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-12">
+            <div class="card card-chart">
+                <div class="card-header card-header-warning">
+                    <div class="ct-chart" id="expectedBoard">
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Expected Board</h4>
+                    <p class="card-category">
+                        <span class="text-success"><i class="material-icons">shuffle</i> Shuffle </span> the board.
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">access_time</i>Ready
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-12">
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Solution</h4>
+                    <p class="card-category">total move:</p>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Summary</h4>
+                    <p class="card-category">
+                        The goal of this project is to programmatically solve the N-puzzle.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</th:block>

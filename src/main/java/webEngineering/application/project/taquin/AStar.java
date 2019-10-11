@@ -1,14 +1,17 @@
-package webEngineering.webEngineering.project.taquin;
+package webEngineering.application.project.taquin;
+
+import webEngineering.application.form.NPuzzleForm;
+import webEngineering.application.project.taquin.euristicFunction.HeuristicFunction;
 
 import java.util.List;
 import java.util.PriorityQueue;
 
-import webEngineering.webEngineering.project.taquin.euristicFunction.HeuristicFunction;
-
 public class AStar {
 	
-	private PriorityQueue<NPuzzle> pQueue = new PriorityQueue<NPuzzle>(new NPuzzleComparator());
-	
+	private PriorityQueue<NPuzzle> pQueue;
+
+	private NPuzzle solvedPuzzle;
+
 	private int[][] goalState;
 	
 	private int maxBoardInMemory = 0;
@@ -19,27 +22,41 @@ public class AStar {
 	
 	
 	public AStar(NPuzzle puzzle, int[][] goalState, HeuristicFunction heuristic) {
-		puzzle.setDistance(0);
+
 		this.goalState = goalState;
+		pQueue = new PriorityQueue<>(new NPuzzleComparator());
 		pQueue.add(puzzle);
 		this.heuristic = heuristic;
 	}
-	
+
+	public AStar(int [][] initialBoard, int[][] goalBoard, HeuristicFunction function, int m) {
+
+		NPuzzle puzzle = new NPuzzle(m);
+		puzzle.setBoard(initialBoard);
+		pQueue = new PriorityQueue<>(new NPuzzleComparator());
+		pQueue.add(puzzle);
+		this.goalState = goalBoard;
+		this.heuristic = function;
+
+	}
+
+	public AStar(NPuzzleForm form) {
+
+		NPuzzle puzzle = new NPuzzle(form.getDimension());
+		puzzle.setBoard(form.getInitialBoard());
+		pQueue = new PriorityQueue<>(new NPuzzleComparator());
+		pQueue.add(puzzle);
+		this.goalState = form.getExpectedBoard();
+		this.heuristic = form.getHeuristicFunction();
+	}
+
 	public NPuzzle resolve() {
 
 		while (pQueue.size() > 0) {
 			
 			NPuzzle currentPuzzle = pQueue.remove();
-			setMaxBoardInMemory(getMaxBoardInMemory() - 1);
-			for (int i = 0; i < currentPuzzle.getDimension(); i++) {
-				for (int j = 0; j < currentPuzzle.getDimension(); j++) {
-					System.out.print(currentPuzzle.getBoard()[i][j] + " ");
-				}
-				System.out.println("");
-			}
-			System.out.println("");
-
 			if (currentPuzzle.isAs(goalState)) {
+				solvedPuzzle = currentPuzzle;
 				return currentPuzzle;
 			}
 			List<NPuzzle> children = currentPuzzle.visit();
@@ -68,5 +85,12 @@ public class AStar {
 	public void setMaxBoardInMemory(int maxBoardInMemory) {
 		this.maxBoardInMemory = maxBoardInMemory;
 	}
-	
+
+	public NPuzzle getSolvedPuzzle() {
+		return solvedPuzzle;
+	}
+
+	public void setSolvedPuzzle(NPuzzle solvedPuzzle) {
+		this.solvedPuzzle = solvedPuzzle;
+	}
 }

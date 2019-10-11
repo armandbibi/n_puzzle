@@ -1,4 +1,4 @@
-package webEngineering.webEngineering.project.taquin;
+package webEngineering.application.project.taquin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,8 @@ public class NPuzzle implements Cloneable{
 
 	
 	public NPuzzle(int dimension) {
-		
+
+		this.distance = 0;
 		this.dimension = dimension;
 		this.lastMove = 0;
 		this.path = new ArrayList<>();

@@ -1,7 +1,7 @@
-package webEngineering.webEngineering.project.taquin.euristicFunction;
+package webEngineering.application.project.taquin.euristicFunction;
 
-import webEngineering.webEngineering.project.taquin.NPuzzle;
-import webEngineering.webEngineering.project.taquin.Position;
+import webEngineering.application.project.taquin.NPuzzle;
+import webEngineering.application.project.taquin.Position;
 
 public class ManhattanDistance implements HeuristicFunction {
 
