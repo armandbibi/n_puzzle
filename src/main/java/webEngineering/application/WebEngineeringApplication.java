@@ -2,7 +2,7 @@ package webEngineering.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import webEngineering.application.project.taquin.AStar;
+import webEngineering.application.project.taquin.algo.AStar;
 import webEngineering.application.project.taquin.ExpectedSolutionCalculator;
 import webEngineering.application.project.taquin.NPuzzle;
 import webEngineering.application.project.taquin.euristicFunction.ManhattanDistance;

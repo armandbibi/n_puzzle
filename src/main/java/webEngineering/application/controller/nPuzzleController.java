@@ -12,16 +12,9 @@ import javax.annotation.PostConstruct;
 @RequestMapping("/taquin")
 public class nPuzzleController {
 
-
-
 	@GetMapping("/display")
 	public String getViewForThis(Model model) {
 
 		return "/layouts/main_layout";
-	}
-
-	@PostConstruct
-	protected void iamAlive(){
-	    System.out.println("taquin controller alive");
 	}
 }

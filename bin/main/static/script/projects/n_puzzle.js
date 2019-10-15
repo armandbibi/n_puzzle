@@ -21,59 +21,47 @@
         }
     }
 
-  var display_solve = (solution) => {
-
+  var display_resolve = (solution) => {
+    
     let table = $("#originalBoard");
     console.log(solution.solvedPuzzle.path);
-     $(".solution_display").html("");
-    $.wait(function() {iterate(0, solution.solvedPuzzle.path), 0.32});
-  }
-  function iterate(index, array) {
-     swapPiece("originalBoard",  array[index],".", 4);
-     addPieceToSolution(array[index]);
-       $.wait(function() {iterate(++index, array)}, 3);
-  }
-
-  function addPieceToSolution(piece) {
-    $(".solution_display").append("<div style='display:none; min-height: 50px; border:solid; ' class=' col col-2 timmytest'>" + piece +"</div>");
-    $(".timmytest").fadeIn();
-  }
-
-  $.wait = function( callback, seconds){
-     return window.setTimeout( callback, seconds * 100 );
+    solution.solvedPuzzle.path.forEach(function() {
+      swapPiece("originalBoard", $(this),"-");
+    })
   }
 
   // ajax request to submit form
 
-  var solve = () => {
-   return new Promise(function (resolve, reject) {
+  var resolve = () => {
+
     var formData = {
         heuristicFunction : $("#form_heuristic").html(),
         dimension : $('#form_dimension').html(),
         initialBoard : convertDomTableToBidimentionalArray(4, "originalBoard"),
         expectedBoard : convertDomTableToBidimentionalArray(4, "expectedBoard")
     }
+
     $.ajax({
       type :'POST',
       url : '/v1/n-puzzle/solve',
       contentType : 'application/json',
       data : JSON.stringify(formData),
-      ajaxOptions: {
-        beforeSend: function (xhr)
-        {
-          xhr.setRequestHeader(token, header);
-        }
-      },
+       ajaxOptions: {
+                                      beforeSend: function (xhr)
+                                        {
+                                          xhr.setRequestHeader(token, header);
+                                        }
+                               },
       dataType : 'json',
       success : function(result) {
-        resolve(result);
+        console.log(result);
+        display_resolve(result);
       },
       error : function(error) {
-        reject(error);
-    }
+      console.log(error)}
     })
-  })
-}
+  }
+
   // convert dom element to bidimentional array
 
   var convertDomTableToBidimentionalArray= (dimension, location) => {
@@ -109,22 +97,37 @@
   	$("#"+emplacement).html(data);
   }
 
+  var getSolutionBoard = (model, dimension) => {
+
+    $.ajax({
+      url : '/v1/n-puzzle/board/solution?name=SORTEDTABLE&dimension=' + dimension,
+      type : 'GET',
+      error : function(xhr, status, error) {
+      	console.log(error);
+      },
+      success : function(data) {
+      	drawBoard("expectedBoard", data);
+      }
+    })
+  }
+
   var setBoard = (model, dimension, emplacement) => {
-    return new Promise (function (resolve, reject) {
-        $.ajax({
-          url : '/v1/n-puzzle/board/solution?name=' + model + '&dimension=' + dimension,
-          type : 'GET',
-          error : function(xhr, status, error) {
-            console.log(error);
-          },
-          success : function(data) {
-            drawBoard(emplacement, data);
-            resolve(data);
-          },
-          error : function (error) {
-            reject : error;
-          }
+
+    $.ajax({
+      url : '/v1/n-puzzle/board/solution?name=' + model + '&dimension=' + dimension,
+      type : 'GET',
+      error : function(xhr, status, error) {
+      	console.log(error);
+      },
+      success : function(data) {
+      	drawBoard(emplacement, data);
+      	$("#originalBoard > div > div").click(function() {
+          changePieceByHand($(this));
         })
+        $(".run_puzzle").click(function () {
+                resolve();
+         })
+      }
     })
   }
 
@@ -135,37 +138,20 @@
     let tile2;
     domElement.children('div').each(function(i) {
         $(this).children('div').each(function(j) {
-          if($(this).children().children().html() == piece1 + "")
+          
+          if($(this).html() == piece1)
             tile1 = $(this);
-          if($(this).children().children().html() == piece2 + "")
+          if($(this).html() == piece2)
             tile2 = $(this);
         })
     })
-
-    let tmp = tile1.html();
-    let tmp2 = tile2.html();
-    tile1.html(tmp2);
-    tile1.toggleClass("taq_cell_active");
-    tile2.toggleClass("taq_cell_active");
-    tile2.html(tmp);
+    tile1.html(piece2);
+    tile2.html(piece1);
   }
+  
 
   $(document).ready(function() {
 
-    setBoard("SORTEDTABLE", 4, "expectedBoard");
-
-
-    setBoard("EASYSHUFFLED_SORTEDTABLE", 4, "originalBoard").then(function(content) {
-      $(".taq_cell").click(function(piece) {changePieceByHand($(this));});
-      $(".run_puzzle").click(function() {
-        solve().then(function (data) {
-          display_solve(data).then(function () {$(".run_puzzle").click();})
-        })
-        $.notify({
-          message: 'problem solved'
-        },{
-          type: 'info'
-        });
-      });
-    });
+    getSolutionBoard("CLASSIC", 4);
+    setBoard("EASYSHUFFLED_SORTEDTABLE", 4, "originalBoard");
   });

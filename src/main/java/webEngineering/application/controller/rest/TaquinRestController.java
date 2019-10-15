@@ -2,8 +2,9 @@ package webEngineering.application.controller.rest;
 
 import org.springframework.web.bind.annotation.*;
 import webEngineering.application.form.NPuzzleForm;
-import webEngineering.application.project.taquin.AStar;
+import webEngineering.application.project.taquin.algo.AStar;
 import webEngineering.application.project.taquin.ExpectedSolutionCalculator;
+import webEngineering.application.project.taquin.algo.NPuzzleResolver;
 
 @RestController
 @RequestMapping("/v1/n-puzzle")
@@ -22,10 +23,10 @@ public class TaquinRestController {
 	}
 
 	@PostMapping("/solve")
-	public AStar solve(@RequestBody NPuzzleForm form) {
+	public NPuzzleResolver solve(@RequestBody NPuzzleForm form) {
 
-		AStar aStar = new AStar(form);
-		aStar.resolve();
-		return aStar;
+		NPuzzleResolver resolver = new AStar(form);
+		resolver.resolve();
+		return resolver;
 	}
 }

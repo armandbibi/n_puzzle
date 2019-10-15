@@ -7,7 +7,7 @@ public class NPuzzle implements Cloneable{
 
 	private int dimension;
 	
-	private int board[][];
+	private int[][] board;
 	
 	private int lastMove;
 	
@@ -32,7 +32,7 @@ public class NPuzzle implements Cloneable{
 		}
 	}
 	
-	public Position findBlanckSpot() {
+	private Position findBlankSpot() {
 		for (int i = 0; i < dimension; i++) {
 			for (int j = 0; j < dimension; j++)
 				if (board[i][j] == 0)
@@ -43,18 +43,20 @@ public class NPuzzle implements Cloneable{
 	
 	
 	
-	public void swap(Position pos1, Position pos2) {
+	private void swap(Position pos1, Position pos2) {
 		
 		int tmp = board[pos1.getX()][ pos1.getY()];
 		board[pos1.getX()][ pos1.getY()] = board[pos2.getX()][ pos2.getY()];
 		board[pos2.getX()][ pos2.getY()] = tmp;
 	}
 	
-	public Direction getMove(int piece) {
+	private Direction getMove(int piece) {
 		
-		Position blanckSpotPosition = findBlanckSpot();
-		int line = blanckSpotPosition.getX();
-		int column = blanckSpotPosition.getY();
+		Position blankSpotPosition = findBlankSpot();
+		if (blankSpotPosition == null)
+			throw new IllegalArgumentException("no blank on the field");
+		int line = blankSpotPosition.getX();
+		int column = blankSpotPosition.getY();
 		
 		 if (line > 0 && piece == this.board[line-1][column]) {
 		      return Direction.DOWN;
@@ -71,32 +73,33 @@ public class NPuzzle implements Cloneable{
 	
 	public Direction move(int piece) {
 		Direction direction = getMove(piece);
-		Position blanckSpot = findBlanckSpot();
-		if (direction == null)
+		Position blankSpot = findBlankSpot();
+		if (direction == null || blankSpot == null)
 			return null;
-		 int line = blanckSpot.getX();
-	     int column = blanckSpot.getY();
+		int line = blankSpot.getX();
+	     int column = blankSpot.getY();
 	     switch (direction) {
 	     case LEFT:
-	    	 this.swap(blanckSpot, new Position(line, column + 1));
+	    	 this.swap(blankSpot, new Position(line, column + 1));
 	    	 break;
 	     case RIGTH:
-	    	 this.swap(blanckSpot, new Position(line, column - 1));
+	    	 this.swap(blankSpot, new Position(line, column - 1));
 	    	 break;
 	     case UP:
-	    	 this.swap(blanckSpot, new Position(line + 1, column));
+	    	 this.swap(blankSpot, new Position(line + 1, column));
 	    	 break;
 	     case DOWN:
-	    	 this.swap(blanckSpot, new Position(line - 1, column));
+	    	 this.swap(blankSpot, new Position(line - 1, column));
 	    	 break;
 	      }
 	    this.lastMove = piece;
 	    return direction;
 	}
 	
-	public  List<Integer> getAllowedMove() {
+	private List<Integer> getAllowedMove() {
+
 		List<Integer> allowedMove = new ArrayList<>();
-		
+
 		for (int i = 0; i < dimension; i++) {
 			for (int j = 0; j < dimension; j++) {
 				int piece = board[i][j];
@@ -109,12 +112,12 @@ public class NPuzzle implements Cloneable{
 	}
 	
 	public ArrayList<NPuzzle>visit() {
-		ArrayList<NPuzzle> children =  new ArrayList<NPuzzle>();
+		ArrayList<NPuzzle> children = new ArrayList<>();
 		List<Integer> allowedMove = getAllowedMove();
 		for (Integer position: allowedMove) {
 			if (!position.equals(lastMove)) {
 				NPuzzle newPuzzle;
-				newPuzzle = (NPuzzle) this.clone();
+				newPuzzle = this.clone();
 				newPuzzle.move(position);
 				newPuzzle.path.add(position);
 				children.add(newPuzzle);
@@ -127,15 +130,11 @@ public class NPuzzle implements Cloneable{
 		return dimension;
 	}
 
-	public void setDimension(int dimension) {
-		this.dimension = dimension;
-	}
-
 	public int[][] getBoard() {
 		return board;
 	}
 
-	public void setBoard(int board[][]) {
+	public void setBoard(int[][] board) {
 		this.board = board;
 	}
 
@@ -160,21 +159,14 @@ public class NPuzzle implements Cloneable{
 		}
 		return true;
 	}
-	
+
 	public NPuzzle clone() {
 		NPuzzle newPuzzle = new NPuzzle(this.dimension);
-		for (var i = 0; i < this.dimension; i++) {
-			for (var j = 0; j < this.dimension; j++) {
-				newPuzzle.board[i][j] = this.board[i][j];
-			}
-		}
-		
+		for (var i = 0; i < this.dimension; i++)
+			System.arraycopy(this.board[i], 0, newPuzzle.board[i], 0, this.dimension);
 		newPuzzle.distance = distance;
 		newPuzzle.dimension = dimension;
-		
-		for (var i = 0; i < this.path.size(); i++) {
-			newPuzzle.path.add(path.get(i));
-		}
+		for (var i = 0; i < this.path.size(); i++) newPuzzle.path.add(path.get(i));
 		return newPuzzle;
-	};
+	}
 }
