@@ -24,18 +24,4 @@ public class Position {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
-	public Boolean equals(int x, int y) {
-		return this.x == x && this.y == y;
-	}
-	
-	public Boolean equals(Position p) {
-		if (p == null)
-			return false;
-		if (this == p)
-			return true;
-		
-		return x == p.x && y == p.y;
-	}
-
 }

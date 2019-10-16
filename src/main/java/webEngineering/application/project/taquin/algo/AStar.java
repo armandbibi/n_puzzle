@@ -26,7 +26,7 @@ public class AStar extends NPuzzleResolverImp {
 				solvedPuzzle = currentPuzzle;
 				return currentPuzzle;
 			}
-			List<NPuzzle> children = currentPuzzle.visit();
+			List<NPuzzle> children = currentPuzzle.visit(heuristic, goalState);
 			for (NPuzzle child: children) {
 				child.setDistance(child.getDistance() + this.heuristic.estimate(child, goalState));
 				pQueue.add(child);

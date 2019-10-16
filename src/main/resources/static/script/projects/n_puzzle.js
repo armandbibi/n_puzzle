@@ -149,23 +149,23 @@
     tile2.toggleClass("taq_cell_active");
     tile2.html(tmp);
   }
-
   $(document).ready(function() {
 
     setBoard("SORTEDTABLE", 4, "expectedBoard");
 
-
+     // EASYSHUFFLED_SORTEDTABLE
     setBoard("EASYSHUFFLED_SORTEDTABLE", 4, "originalBoard").then(function(content) {
       $(".taq_cell").click(function(piece) {changePieceByHand($(this));});
       $(".run_puzzle").click(function() {
-        solve().then(function (data) {
-          display_solve(data).then(function () {$(".run_puzzle").click();})
-        })
         $.notify({
           message: 'problem solved'
         },{
           type: 'info'
         });
+        $(".run_puzzle").off("click");
+        solve().then(function (data) {
+          display_solve(data).then(function () {$(".run_puzzle").click();})
+        })
       });
     });
   });

@@ -21,9 +21,7 @@ public class ManhattanDistance implements HeuristicFunction {
 					for (int k = 0; k < puzzle.getDimension(); k++)
 						for (int l = 0; l < puzzle.getDimension(); l++)
 							if (solution[k][l] == piece)
-								expectedPosition = new Position(k, l);
-						
-					distance += Math.abs(i - expectedPosition.getX()) + Math.abs(j - expectedPosition.getY() );
+								distance += Math.abs(i - k) + Math.abs(j - l);
 				}
 			}
 		}
