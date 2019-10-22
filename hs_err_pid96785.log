@@ -1,0 +1,36 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0x00007fff6a100430, pid=96785, tid=38671
+#
+# JRE version: OpenJDK Runtime Environment (11.0.3+12) (build 11.0.3+12-b304.56)
+# Java VM: OpenJDK 64-Bit Server VM (11.0.3+12-b304.56, mixed mode, tiered, compressed oops, g1 gc, bsd-amd64)
+# Problematic frame:
+# C  [libsystem_platform.dylib+0x2430]  _platform_strcmp+0xb0
+#
+# No core dump will be written. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+# The crash happened outside the Java Virtual Machine in native code.
+# See problematic frame for where to report the bug.
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -agentlib:jdwp=transport=dt_socket,server=n,suspend=y,address=63995 -Dfile.encoding=UTF-8 -Duser.country=US -Duser.language=en -Duser.variant webEngineering.application.WebEngineeringApplication
+
+Host: iMac13,2 x86_64 2900 MHz, 4 cores, 8G, Darwin 18.6.0
+Time: Tue Oct 22 18:17:37 2019 CEST elapsed time: 473 seconds (0d 0h 7m 53s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007fabc9a2a800):  JavaThread "YJPAgent-CpuSampler" daemon [_thread_in_native, id=38671, stack(0x000070000ca3f000,0x000070000cb3f000)]
+
+Stack: [0x000070000ca3f000,0x000070000cb3f000],  sp=0x000070000cb3ea60,  free space=1022k
+Native frames: (J=compiled Java code, A=aot compiled Java code, j=interpreted, Vv=VM code, C=native code)
+C  [libsystem_platform.dylib+0x2430]  _platform_strcmp+0xb0
+C  [libyjpagent.dylib+0x1288a9]  _Z10ymap_equalPKcS0_+0x9
+C  [libyjpagent.dylib+0x15abd]  _ZNK9ClassFile12getThisClassEv+0x97d
+C  [libyjpagent.dylib+0x117938]  _ZN10StringPool12getStrIDImplEPKcb+0x28
+C  [libyjpagent.dylib+0x1289b0]  _ZN7YMethod9getByNameERK11YStringImplIcES3_S3_S3_S3_b+0x30

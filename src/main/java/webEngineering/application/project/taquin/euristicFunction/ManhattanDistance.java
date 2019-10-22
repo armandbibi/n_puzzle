@@ -2,30 +2,28 @@ package webEngineering.application.project.taquin.euristicFunction;
 
 import webEngineering.application.project.taquin.NPuzzle;
 import webEngineering.application.project.taquin.Position;
+import webEngineering.application.project.taquin.algo.NPuzzleResolverImp;
 
 public class ManhattanDistance implements HeuristicFunction {
 
 	@Override
-	public int estimate(NPuzzle puzzle, int[][] solution) {
+	public int estimate(NPuzzle puzzle, NPuzzleResolverImp resolver) {
 		
 		int distance = 0;
+		int dimension = puzzle.getDimension();
+		int[][] currentBoard = puzzle.getBoard();
+		Position[] solutionPositionList = resolver.getPositionSolutionList();
 		
-		for (int i = 0; i < puzzle.getDimension(); i++) {
-			for (int j = 0; j < puzzle.getDimension(); j++) {
+		for (int i = 0; i < dimension; i++) {
+			for (int j = 0; j < dimension; j++) {
 				
-				int piece = puzzle.getBoard()[i][j];
-				
-				if (piece != 0) {
-
-					Position expectedPosition = null;
-					for (int k = 0; k < puzzle.getDimension(); k++)
-						for (int l = 0; l < puzzle.getDimension(); l++)
-							if (solution[k][l] == piece)
-								distance += Math.abs(i - k) + Math.abs(j - l);
-				}
+				int piece = currentBoard[i][j];
+				Position p  = solutionPositionList[piece];
+				distance += Math.abs(i
+						- p.getX())
+						+ Math.abs(j - p.getY());
 			}
 		}
-		
 		return distance;
 	}
 }

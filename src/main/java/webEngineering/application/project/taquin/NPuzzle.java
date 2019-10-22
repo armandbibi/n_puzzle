@@ -1,18 +1,13 @@
 package webEngineering.application.project.taquin;
 
-import webEngineering.application.project.taquin.euristicFunction.HeuristicFunction;
-
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class NPuzzle implements Cloneable{
 
 	private int dimension;
 
-	private byte[] state;
-
-	private byte blank;
-	
 	private int[][] board;
 	
 	private int lastMove;
@@ -23,50 +18,20 @@ public class NPuzzle implements Cloneable{
 	
 	private Integer distance;
 
+	private int heuristicDistance;
+
+	private NPuzzle() {}
 
 	public NPuzzle(int dimension) {
 
 		this.distance = 0;
 		this.dimension = dimension;
 		this.lastMove = 0;
+		heuristicDistance = -1;
 		this.path = new ArrayList<>();
 		board = new int[dimension][dimension];
-		this.state = new byte[dimension * dimension];
 		blankSpot = null;
 	}
-
-	private byte getPieceAt(int col, int row) {
-		return state[col + row * dimension];
-	}
-
-	private  byte getPieceAt(int index;) {
-		return state[index];
-	}
-
-	private void putPieceAt(int col, int row, byte value) {
-		state[col + row * dimension] = value;
-	}
-
-	private void putPieceAt(int index, byte value)  {
-		state[index] = value;
-	}
-
-	private void swap(byte col, byte row) {
-
-		byte tmp = getPieceAt(col, row);
-		putPieceAt(col, row, getPieceAt(blank));
-		putPieceAt(blank, tmp);
-		blank = (byte) (col + row * dimension);
-	}
-
-	private void setBlankSpot() {
-		for (byte i = 0; i < dimension * dimension; i++) {
-			if (state[i] == 0) {
-				blank = state[i % dimension];
-			}
-		}
-	}
-
 	
 	
 	private Position findBlankSpot() {
@@ -135,20 +100,35 @@ public class NPuzzle implements Cloneable{
 	
 	private List<Integer> getAllowedMove() {
 
+		if (blankSpot == null)
+			blankSpot = findBlankSpot();
 		List<Integer> allowedMove = new ArrayList<>();
+		int piece;
 
-		for (int i = 0; i < dimension; i++) {
-			for (int j = 0; j < dimension; j++) {
-				int piece = board[i][j];
-				if (getMove(piece) != null) {
-					allowedMove.add(piece);
-				}
-			}
+		if (blankSpot.getX() > 0) {
+			piece = board[blankSpot.getX() - 1][blankSpot.getY()];
+			if (getMove(piece) != null)
+				allowedMove.add(piece);
+		}
+		if (blankSpot.getX() < dimension - 1) {
+			piece = board[blankSpot.getX() + 1][blankSpot.getY()];
+			if (getMove(piece) != null)
+				allowedMove.add(piece);
+		}
+		if (blankSpot.getY() > 0) {
+			piece = board[blankSpot.getX()][blankSpot.getY() - 1];
+			if (getMove(piece) != null)
+				allowedMove.add(piece);
+		}
+		if (blankSpot.getY() < dimension - 1) {
+			piece = board[blankSpot.getX()][blankSpot.getY() + 1];
+			if (getMove(piece) != null)
+				allowedMove.add(piece);
 		}
 		return allowedMove;
 	}
 	
-	public ArrayList<NPuzzle>visit(HeuristicFunction heuristicFunction, int[][] goalState) {
+	public ArrayList<NPuzzle>visit() {
 		ArrayList<NPuzzle> children = new ArrayList<>();
 		List<Integer> allowedMove = getAllowedMove();
 		for (Integer position: allowedMove) {
@@ -157,7 +137,6 @@ public class NPuzzle implements Cloneable{
 				newPuzzle = this.clone();
 				newPuzzle.move(position);
 				newPuzzle.path.add(position);
-				newPuzzle.setDistance(newPuzzle.getDistance() + heuristicFunction.estimate(newPuzzle, goalState));
 				children.add(newPuzzle);
 			}
 		}
@@ -200,16 +179,24 @@ public class NPuzzle implements Cloneable{
 	}
 
 	public NPuzzle clone() {
+		NPuzzle newPuzzle = null;
+		try {
+			newPuzzle = (NPuzzle) super.clone();
 
-		NPuzzle newPuzzle = new NPuzzle(this.dimension);
+
+		newPuzzle.board = new int[dimension][];
 		newPuzzle.blankSpot = new Position(blankSpot.getX(), blankSpot.getY());
 
 		for (var i = 0; i < this.dimension; i++)
-			System.arraycopy(this.board[i], 0, newPuzzle.board[i], 0, this.dimension);
+			newPuzzle.board[i] = this.board[i].clone();
 		newPuzzle.distance = distance;
 		newPuzzle.dimension = dimension;
-		for (var i = 0; i < this.path.size(); i++) newPuzzle.path.add(path.get(i));
+		newPuzzle.path = (ArrayList<Integer>) this.path.clone();
+		} catch (CloneNotSupportedException e) {
+			e.printStackTrace();
+		}
 		return newPuzzle;
+
 	}
 
 	public Position getBlankSpot() {
@@ -218,5 +205,21 @@ public class NPuzzle implements Cloneable{
 
 	public void setBlankSpot(Position blankSpot) {
 		this.blankSpot = blankSpot;
+	}
+
+
+	public int getHeuristicDistance() {
+		return heuristicDistance;
+	}
+
+	public void setHeuristicDistance(int heuristicDistance) {
+		this.heuristicDistance = heuristicDistance;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (((NPuzzle) o).heuristicDistance == heuristicDistance)
+			return Arrays.deepEquals(this.board, ((NPuzzle) o).board);
+		return false;
 	}
 }

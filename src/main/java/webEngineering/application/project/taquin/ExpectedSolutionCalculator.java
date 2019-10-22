@@ -62,7 +62,19 @@ public enum ExpectedSolutionCalculator {
 			return startingPuzzle;
 		}
 	}
-	;
+	,
+	HARD_DIM_THREE_PUZZLE_SORTED_TABLE("hard puzzle for dimension 3")  {
+
+		@Override
+		public int[][] getSolution(int dimension){
+			int [][] startingPuzzle = {
+					{8,6,7},
+					{2,5,4},
+					{3,0,1}
+			};
+			return startingPuzzle;
+		}
+	};
 	ExpectedSolutionCalculator(String name) {
 		
 	}

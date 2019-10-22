@@ -1,11 +1,12 @@
 package webEngineering.application;
 
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import webEngineering.application.project.taquin.algo.AStar;
 import webEngineering.application.project.taquin.ExpectedSolutionCalculator;
 import webEngineering.application.project.taquin.NPuzzle;
+import webEngineering.application.project.taquin.algo.AStar;
 import webEngineering.application.project.taquin.euristicFunction.ManhattanDistance;
+
+import static org.springframework.boot.SpringApplication.run;
 
 @SpringBootApplication
 public class WebEngineeringApplication {
@@ -34,6 +35,6 @@ public class WebEngineeringApplication {
 		AStar aStar = new AStar(puzzle, expectedPuzzle, new ManhattanDistance());
 		aStar.resolve();
 
-		SpringApplication.run(WebEngineeringApplication.class, args);
+		run(WebEngineeringApplication.class, args);
 	}
 }

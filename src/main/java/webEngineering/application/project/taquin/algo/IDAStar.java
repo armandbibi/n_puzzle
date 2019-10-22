@@ -2,17 +2,15 @@ package webEngineering.application.project.taquin.algo;
 
 import webEngineering.application.form.NPuzzleForm;
 import webEngineering.application.project.taquin.NPuzzle;
-import webEngineering.application.project.taquin.NPuzzleComparator;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.PriorityQueue;
 
 public class IDAStar extends NPuzzleResolverImp {
 
     int exploredNode = 0;
     List<NPuzzle> visitedNodeDuringRecursion = new ArrayList<>();
-
 
     public IDAStar(NPuzzleForm form) {
         super(form);
@@ -22,8 +20,8 @@ public class IDAStar extends NPuzzleResolverImp {
     public NPuzzle resolve() {
 
         NPuzzle start = pQueue.peek();
-        int nextCostBound = heuristic.estimate(start, goalState);
-        long exploredPuzzle = 0;
+        int nextCostBound = heuristic.estimate(start, this);
+
 
         while (solvedPuzzle == null) {
             int currentBound = nextCostBound;
@@ -34,34 +32,41 @@ public class IDAStar extends NPuzzleResolverImp {
     }
 
     private NPuzzle depthFirstSearch(NPuzzle puzzle, int currentBound, int[][] goalState) {
-        if (puzzle.isAs(goalState)) {
+        if (puzzle.getHeuristicDistance() == 0) {
             return puzzle;
         }
 
         exploredNode++;
 
-        ArrayList<NPuzzle> children = puzzle.visit(heuristic, goalState);
+        ArrayList<NPuzzle> children = puzzle.visit();
+        for (NPuzzle child : children) {
+
+            int h = heuristic.estimate(child, this);
+            child.setDistance(h + child.getDistance());
+            child.setHeuristicDistance(h);
+        }
+
+        children.sort(new Comparator<NPuzzle>() {
+            @Override
+            public int compare(NPuzzle nPuzzle, NPuzzle t1) {
+                return  nPuzzle.getHeuristicDistance() - t1.getHeuristicDistance();
+            }
+        });
 
         for (NPuzzle child: children) {
-                if (!haveBeenVisited(child)) {
-                visitedNodeDuringRecursion.add(child);
-                int value = child.getDistance();
-                if (value <= currentBound) {
-                    NPuzzle result = depthFirstSearch(child, currentBound, goalState);
-                    if (result != null) {
-                        return result;
+                if (!visitedNodeDuringRecursion.contains(child)) {
+
+                    visitedNodeDuringRecursion.add(child);
+                    int value = child.getDistance();
+                    if (value <= currentBound) {
+                        NPuzzle result = depthFirstSearch(child, currentBound, goalState);
+                        if (result != null) {
+                          return result;
+                        }
                     }
-                }
                 visitedNodeDuringRecursion.remove(child);
             }
         }
         return null;
-    }
-
-    private boolean haveBeenVisited(NPuzzle child) {
-        for(NPuzzle p : visitedNodeDuringRecursion)
-            if (p.isAs(child.getBoard()))
-                return true;
-            return false;
     }
 }

@@ -1,17 +1,20 @@
 package webEngineering.application.project.taquin.euristicFunction;
 
 import webEngineering.application.project.taquin.NPuzzle;
+import webEngineering.application.project.taquin.algo.NPuzzleResolverImp;
 
 public class LinearConflict extends ManhattanDistance{
 
 
     @Override
-    public int estimate(NPuzzle puzzle, int[][] solution) {
+    public int estimate(NPuzzle puzzle, NPuzzleResolverImp resolver) {
 
-        int cost = super.estimate(puzzle, solution);
+        int cost = super.estimate(puzzle, resolver);
 
-        cost += linearVerticalConflict(puzzle.getBoard(), solution);
-        cost += linearHorizontalConflict(puzzle.getBoard(), solution);
+        int[][] solution = resolver.getGoalState();
+
+      //  cost += linearVerticalConflict(puzzle.getBoard(), solution);
+      //  cost += linearHorizontalConflict(puzzle.getBoard(), solution);
         return cost;
     }
 
@@ -56,7 +59,7 @@ public class LinearConflict extends ManhattanDistance{
             for (int row = 0;  row < dimension; row++){
                 int cellValue = currentState[row][column];
                 //is tile in its goal row ?
-                if (cellValue != 0 && isInGoalRow(cellValue, column, goalState)){
+                if (cellValue != 0 && isInGoalColumn(cellValue, column, goalState)){
                     if (cellValue > max){
                         max = cellValue;
                     }else {

@@ -2,7 +2,7 @@ package webEngineering.application.project.taquin;
 
 import java.util.Comparator;
 
-public class NPuzzleComparator implements Comparator<NPuzzle> {
+public class NPuzzleDistanceComparator implements Comparator<NPuzzle> {
 
 	@Override
 	public int compare(NPuzzle o1, NPuzzle o2) {
