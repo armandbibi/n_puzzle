@@ -2,9 +2,11 @@ package webEngineering.application;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import webEngineering.application.project.taquin.ExpectedSolutionCalculator;
-import webEngineering.application.project.taquin.NPuzzle;
+import webEngineering.application.project.taquinv2.NPuzzle;
 import webEngineering.application.project.taquin.algo.AStar;
 import webEngineering.application.project.taquin.euristicFunction.ManhattanDistance;
+import webEngineering.application.project.taquinv2.heuristic.Manhathan;
+import webEngineering.application.project.taquinv2.heuristic.OptimizedManhattan;
 
 import static org.springframework.boot.SpringApplication.run;
 
@@ -15,26 +17,27 @@ public class WebEngineeringApplication {
 
 		int[][] startingPuzzle = {
 				{
-						5,1,8,3
+						0,14,13,6
 				},
 				{
-						6,7,2,4
+						11,7,2,5
 				},
 				{
-						0,9,10,12
+						15,9,10, 1
 				},
 				{
-						13,14,11,15
+						12,4,3, 8
 				}
 		};
 
+		for (int i = 0; i < 15; i++) {
 
-		NPuzzle puzzle = new NPuzzle(4);
-		puzzle.setBoard(startingPuzzle);
-		int[][] expectedPuzzle = ExpectedSolutionCalculator.SORTEDTABLE.getSolution(4);
-		AStar aStar = new AStar(puzzle, expectedPuzzle, new ManhattanDistance());
-		aStar.resolve();
-
+			//int[][] startingPuzzle = ExpectedSolutionCalculator.EASYSHUFFLED_SORTEDTABLE.getSolution(4);
+			int[][] expectedPuzzle = ExpectedSolutionCalculator.SORTEDTABLE.getSolution(4);
+			NPuzzle puzzle = new NPuzzle(startingPuzzle, expectedPuzzle, 4, new OptimizedManhattan());
+			puzzle.initAlgo();
+			puzzle.resolve();
+		}
 		run(WebEngineeringApplication.class, args);
 	}
 }

@@ -2,7 +2,6 @@ package webEngineering.application.controller.rest;
 
 import org.springframework.web.bind.annotation.*;
 import webEngineering.application.form.NPuzzleForm;
-import webEngineering.application.project.taquin.algo.AStar;
 import webEngineering.application.project.taquin.ExpectedSolutionCalculator;
 import webEngineering.application.project.taquin.algo.IDAStar;
 import webEngineering.application.project.taquin.algo.NPuzzleResolver;

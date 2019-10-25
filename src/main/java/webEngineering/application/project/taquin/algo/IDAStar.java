@@ -22,7 +22,6 @@ public class IDAStar extends NPuzzleResolverImp {
         NPuzzle start = pQueue.peek();
         int nextCostBound = heuristic.estimate(start, this);
 
-
         while (solvedPuzzle == null) {
             int currentBound = nextCostBound;
             solvedPuzzle = depthFirstSearch(start, currentBound, goalState);
@@ -32,9 +31,7 @@ public class IDAStar extends NPuzzleResolverImp {
     }
 
     private NPuzzle depthFirstSearch(NPuzzle puzzle, int currentBound, int[][] goalState) {
-        if (puzzle.getHeuristicDistance() == 0) {
-            return puzzle;
-        }
+
 
         exploredNode++;
 
@@ -46,14 +43,17 @@ public class IDAStar extends NPuzzleResolverImp {
             child.setHeuristicDistance(h);
         }
 
-        children.sort(new Comparator<NPuzzle>() {
-            @Override
-            public int compare(NPuzzle nPuzzle, NPuzzle t1) {
-                return  nPuzzle.getHeuristicDistance() - t1.getHeuristicDistance();
-            }
-        });
+//        children.sort(new Comparator<NPuzzle>() {
+//            @Override
+//            public int compare(NPuzzle nPuzzle, NPuzzle t1) {
+//                return  nPuzzle.getHeuristicDistance() - t1.getHeuristicDistance();
+//            }
+//        });
 
         for (NPuzzle child: children) {
+            if (puzzle.getHeuristicDistance() == 0) {
+                return puzzle;
+            }
                 if (!visitedNodeDuringRecursion.contains(child)) {
 
                     visitedNodeDuringRecursion.add(child);
