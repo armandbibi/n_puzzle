@@ -17,7 +17,11 @@ public class IDAStar implements Algo {
 
     State finalState;
 
+    int totalMoves;
+
     Position[] solutionPositionLis;
+
+    boolean uniformCost = false;
 
     int currentBound;
 
@@ -28,8 +32,11 @@ public class IDAStar implements Algo {
     StateHashMap visitedNode = new StateHashMap();
 
     int nextCostBound;
+    int counter = 50;
 
     Comparator<State> comparator =  Comparator.comparingInt(State::getHeuristicDistance);
+
+    private boolean greedySearch = false;
 
     public IDAStar(Heuristic heuristic, State initalState, State expectedState, Position[] solutionPositionLis) {
         this.heuristic = heuristic;
@@ -53,14 +60,15 @@ public class IDAStar implements Algo {
         long end = System.currentTimeMillis();
         //finding the time difference and converting it into seconds
         int size = 0;
+        State finalState = this.finalState;
         while (finalState.getPreviousState() != null) {
             size++;
             finalState = finalState.getPreviousState();
         }
+        totalMoves = size;
         float sec = (end - start) / 1000F; System.out.println(sec + " seconds & " + size + "shots");
 
-        return finalState;
-
+        return this.finalState;
     }
 
     private State depthFirstSearch(State currentState, int realBound) {
@@ -72,11 +80,17 @@ public class IDAStar implements Algo {
         List<State> validChildren = new ArrayList<>(children);
         for (State child : children) {
 
-            int h = heuristic.estimate(child, solutionPositionLis);
             int hash = StateHashMap.hashKey(child.getBoard());
             if (!visitedNode.containsKey(hash)) {
                 visitedNode.put(hash, child);
-                int value = child.getRealDistance() + h;
+                int h = heuristic.estimate(child, solutionPositionLis);
+                int value;
+                if (uniformCost)
+                    value = child.getRealDistance();
+                else if (greedySearch)
+                    value = h;
+                else
+                    value = child.getRealDistance() + h;
                 child.setTotalDistance(value);
                 child.setHeuristicDistance(h);
                 if (nextCostBound < value)
@@ -87,21 +101,23 @@ public class IDAStar implements Algo {
                 validChildren.remove(child);
         }
 
-        Collections.sort(validChildren, comparator.reversed());
+        Collections.sort(validChildren, comparator);
 
         for (State child: validChildren) {
 
-                int value = child.getTotalDistance();
-
-                if (child.getTotalDistance() <= currentBound) {
-                    State result = depthFirstSearch(child, realBound + 1);
-                    if (result != null) {
-                        return result;
-                    }
+            if (child.getHeuristicDistance() < 8 && child.getTotalDistance() > 58)
+                currentBound += 8;
+            if ((child.getTotalDistance() <= currentBound || (child.getHeuristicDistance() < 8 && child.getTotalDistance() > 58)) && child.getTotalDistance() < 90) {
+                if (child.getHeuristicDistance() < 8 && child.getTotalDistance() > 58)
+                    nextCostBound-= 8;
+                State result = depthFirstSearch(child, realBound + 1);
+                if (result != null) {
+                    return result;
                 }
-
-                visitedNode.remove(StateHashMap.hashKey(child.getBoard()), child);
             }
+
+            visitedNode.remove(StateHashMap.hashKey(child.getBoard()), child);
+        }
         return null;
     }
 
@@ -111,5 +127,13 @@ public class IDAStar implements Algo {
 
     public void setHeuristic(Heuristic heuristic) {
         this.heuristic = heuristic;
+    }
+
+    public int getTotalMoves() {
+        return totalMoves;
+    }
+
+    public State getFinalState() {
+        return this.finalState;
     }
 }

@@ -74,7 +74,28 @@ public enum ExpectedSolutionCalculator {
 			};
 			return startingPuzzle;
 		}
-	};
+	},
+	HARD4BY4("hard puzzle for dimension 4")  {
+
+		@Override
+		public int[][] getSolution(int dimension){
+			int [][] startingPuzzle = {
+					{
+						15,14,13,2,
+				},
+				{
+						12,11,7,6
+				},
+				{
+						4,9,10,5
+				},
+				{
+						3,8,1,0
+				}
+			};
+			return startingPuzzle;
+		}
+	};;
 	ExpectedSolutionCalculator(String name) {
 		
 	}

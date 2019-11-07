@@ -16,9 +16,12 @@ public class OptimizedManhattan implements Heuristic<Position[]> {
 
                 int piece = currentState.find(i, j);
                 Position p  = solutionPositionList[piece];
-                distance += Math.abs(i
+                int toAdd = Math.abs(i
                         - p.getX())
                         + Math.abs(j - p.getY());
+                distance +=  toAdd;
+                if (toAdd != 0)
+                    distance++;
             }
         }
         return distance;

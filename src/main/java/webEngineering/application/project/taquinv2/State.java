@@ -242,10 +242,19 @@ public class State implements Cloneable {
         this.realDistance = realDistance;
     }
 
+    public Direction getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Direction direction) {
+        this.direction = direction;
+    }
+
     public State clone() {
         try {
             State newState = (State) super.clone();
             newState.board = this.board.clone();
+            newState.previousState = this;
             newState.realDistance++;
             return newState;
         } catch (CloneNotSupportedException e) {

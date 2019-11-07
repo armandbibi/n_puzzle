@@ -9,7 +9,7 @@ public class MisplacedTile implements Heuristic<State>{
         int distance = 0;
         for (int i = 0; i < currentState.getDimension(); i++) {
             for (int j = 0; j < currentState.getDimension(); j++) {
-                if(currentState.find(i,j) == currentState.find(i, j))
+                if(currentState.find(i,j) == expectedState.find(i, j))
                     distance++;
             }
         }

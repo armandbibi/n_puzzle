@@ -24,14 +24,14 @@
   var display_solve = (solution) => {
 
     let table = $("#originalBoard");
-    console.log(solution.solvedPuzzle.path);
-     $(".solution_display").html("");
-    $.wait(function() {iterate(0, solution.solvedPuzzle.path), 0.32});
+    console.log(solution);
+    $(".solution_display").html("");
+    $.wait(function() {iterate(0, solution.indexes, solution.listDirection), 0.32});
   }
-  function iterate(index, array) {
-     swapPiece("originalBoard",  array[index],".", 4);
-     addPieceToSolution(array[index]);
-       $.wait(function() {iterate(++index, array)}, 3);
+  function iterate(index, array, directions) {
+     drawBoard("originalBoard",  array[index],".", 4);
+     addPieceToSolution(directions[index]);
+       $.wait(function() {iterate(++index, array, directions)}, 3);
   }
 
   function addPieceToSolution(piece) {
@@ -59,8 +59,7 @@
       contentType : 'application/json',
       data : JSON.stringify(formData),
       ajaxOptions: {
-        beforeSend: function (xhr)
-        {
+        beforeSend: function (xhr) {
           xhr.setRequestHeader(token, header);
         }
       },
@@ -69,6 +68,7 @@
         resolve(result);
       },
       error : function(error) {
+        console.log(error);
         reject(error);
     }
     })
@@ -81,14 +81,14 @@
     let table = [];
     domElement = $('#' + location);
     domElement.children('div').each(function(i) {
-    table.push([])
-            $(this).children('div').each(function(j) {
-              table[i][j] = $(this).children('div').children('div').html();
-              if (table[i][j] == '.')
-                table[i][j] = 0;
-            })
-        })
-     return table
+      table.push([])
+      $(this).children('div').each(function(j) {
+      table[i][j] = $(this).children('div').children('div').html();
+      if (table[i][j] == '.')
+        table[i][j] = 0;
+      })
+    })
+    return table
   }
 
   var drawBoard = (emplacement, table) => {
@@ -151,7 +151,7 @@
   }
   $(document).ready(function() {
 
-    setBoard("SORTEDTABLE", 4, "expectedBoard");
+    setBoard("CLASSIC", 4, "expectedBoard");
 
      // EASYSHUFFLED_SORTEDTABLE
     setBoard("EASYSHUFFLED_SORTEDTABLE", 4, "originalBoard").then(function(content) {

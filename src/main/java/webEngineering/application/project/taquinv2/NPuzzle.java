@@ -2,7 +2,6 @@ package webEngineering.application.project.taquinv2;
 
 import webEngineering.application.project.taquin.Position;
 import webEngineering.application.project.taquinv2.algo.IDAStar;
-import webEngineering.application.project.taquinv2.algo.SmartIDAStar;
 import webEngineering.application.project.taquinv2.heuristic.Heuristic;
 
 public class NPuzzle {
@@ -82,5 +81,22 @@ public class NPuzzle {
 
     public void setAlgo(IDAStar algo) {
         this.algo = algo;
+    }
+
+    public void displayConsole() {
+        State s = algo.getFinalState();
+        do {
+            int[][] matrix = s.getBoardAsMatrix();
+            for (int i = 0; i < dimension; i++) {
+                for (int j = 0; j < dimension; j++) {
+                    System.out.print("| " + matrix[i][j]+ " ");
+                }
+                System.out.println("|");
+            }
+            System.out.println("");
+            System.out.println("");
+            s = s.getPreviousState();
+        } while (s != null);
+        System.out.println("");
     }
 }

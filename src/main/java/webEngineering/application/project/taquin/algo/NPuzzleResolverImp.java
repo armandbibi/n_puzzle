@@ -33,7 +33,7 @@ public abstract class NPuzzleResolverImp implements NPuzzleResolver {
         pQueue = new PriorityQueue<>(new NPuzzleDistanceComparator());
         pQueue.add(puzzle);
         this.goalState = form.getExpectedBoard();
-        this.heuristic = form.getHeuristicFunction();
+    //    this.heuristic = form.getHeuristicFunction();
         currentBoardInMemory = 0;
         totalBoardDuringRun = 0;
         maxBoardInMemory = 0;

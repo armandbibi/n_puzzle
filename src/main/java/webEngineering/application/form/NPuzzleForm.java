@@ -1,13 +1,11 @@
 package webEngineering.application.form;
 
 
-import webEngineering.application.project.taquin.algo.AStar;
-import webEngineering.application.project.taquin.algo.IDAStar;
 import webEngineering.application.project.taquin.algo.NPuzzleResolver;
-import webEngineering.application.project.taquin.euristicFunction.HeuristicFunction;
-import webEngineering.application.project.taquin.euristicFunction.LinearConflict;
-import webEngineering.application.project.taquin.euristicFunction.ManhattanDistance;
-import webEngineering.application.project.taquin.euristicFunction.MisPlacedTiles;
+import webEngineering.application.project.taquinv2.heuristic.Heuristic;
+import webEngineering.application.project.taquinv2.heuristic.Manhathan;
+import webEngineering.application.project.taquinv2.heuristic.MisplacedTile;
+import webEngineering.application.project.taquinv2.heuristic.OptimizedManhattan;
 
 public class NPuzzleForm {
 
@@ -25,13 +23,13 @@ public class NPuzzleForm {
         this.expectedBoard = expectedBoard;
     }
 
-    public HeuristicFunction getHeuristicFunction() {
+    public Heuristic getHeuristicFunction() {
         if (heuristicFunction.equals("Manhattan distance"))
-            return new ManhattanDistance();
+            return new Manhathan();
         else if (heuristicFunction.equals("misplaced tiles"))
-            return new MisPlacedTiles();
+            return new MisplacedTile();
         else if (heuristicFunction.equals("linear conflicts"))
-            return new LinearConflict();
+            return new OptimizedManhattan();
         else
             return null;
     }
@@ -50,15 +48,6 @@ public class NPuzzleForm {
 
     public int getDimension() {
         return dimension;
-    }
-
-    public NPuzzleResolver getnPuzzleResolver() {
-        if (nPuzzleResolver == "A Star")
-            return new AStar(this);
-        else if (nPuzzleResolver == "IDA Star")
-            return new IDAStar(this);
-        else
-            return null;
     }
 
     public void setnPuzzleResolver(String nPuzzleResolver) {
