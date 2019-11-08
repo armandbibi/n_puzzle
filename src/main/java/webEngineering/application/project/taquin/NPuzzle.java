@@ -187,7 +187,7 @@ public class NPuzzle implements Cloneable{
 		newPuzzle.board = new int[dimension][];
 		newPuzzle.blankSpot = new Position(blankSpot.getX(), blankSpot.getY());
 
-		for (var i = 0; i < this.dimension; i++)
+		for (int i = 0; i < this.dimension; i++)
 			newPuzzle.board[i] = this.board[i].clone();
 		newPuzzle.distance = distance;
 		newPuzzle.dimension = dimension;

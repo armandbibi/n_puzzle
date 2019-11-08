@@ -4,6 +4,8 @@ import webEngineering.application.project.taquin.Position;
 import webEngineering.application.project.taquinv2.algo.IDAStar;
 import webEngineering.application.project.taquinv2.heuristic.Heuristic;
 
+import java.util.Map;
+
 public class NPuzzle {
 
 
@@ -16,6 +18,8 @@ public class NPuzzle {
     Heuristic heuristic;
 
     IDAStar algo;
+
+    Map<String, Boolean> options;
 
     public NPuzzle(int[][] initBoard, int[][] expectedBoard, int dimension, Heuristic heuristic) {
         this.initBoard = initBoard;
@@ -33,6 +37,10 @@ public class NPuzzle {
         Position[] solutionlist = expectedState.getInternPosition();
 
         this.algo = new IDAStar(heuristic, newState, expectedState, solutionlist);
+        if (options.containsKey("greedy"))
+            this.algo.setGreedySearch(true);
+        if (options.containsKey("uniform"))
+            this.algo.setUniformCost(true);
     }
 
     public State resolve() {
@@ -98,5 +106,9 @@ public class NPuzzle {
             s = s.getPreviousState();
         } while (s != null);
         System.out.println("");
+    }
+
+    public void setOptions(Map<String, Boolean> options) {
+        this.options = options;
     }
 }

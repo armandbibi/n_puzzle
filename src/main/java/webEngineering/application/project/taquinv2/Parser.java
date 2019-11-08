@@ -8,6 +8,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Stream;
 
 public class Parser {
@@ -18,6 +22,8 @@ public class Parser {
 
     private int dimension;
 
+    Map<String, Boolean> options;
+
     public Parser(String[] args) {
         this.args = args;
     }
@@ -25,8 +31,9 @@ public class Parser {
 
     private NPuzzle parse(String file) throws IOException, InvalidFileNameException, IllegalArgumentException {
 
+        if (args.length == 0) throw new IllegalArgumentException("no input...");
+        
         if (file == null || file.isEmpty()) throw new IllegalArgumentException("name of file is empty or null");
-
         File files = new File(file);
         BufferedReader bufferedReader;
         FileReader reader = new FileReader(files);
@@ -45,9 +52,32 @@ public class Parser {
         }
         checkTableIFullAndCompleted();
         checkNoDuplicateNumber();
-        bufferedReader.close();
-        return  new NPuzzle(table, ExpectedSolutionCalculator.CLASSIC.getSolution(dimension), dimension, new OptimizedManhattan());
 
+        bufferedReader.close();
+        NPuzzle puzzle =   new NPuzzle(table, ExpectedSolutionCalculator.CLASSIC.getSolution(dimension), dimension, new OptimizedManhattan());
+        puzzle.setOptions(options);
+        return puzzle;
+
+    }
+
+    private int getOptions() {
+        options = new HashMap<>();
+
+        int i;
+        i = 0;
+        while (i < args.length) {
+            if (args[i].equals("--greedy") || args[i].equals("-g"))
+                options.put("greedy", true);
+            else if (args[i].equals("--uniform") || args[i].equals("-u"))
+                options.put("uniform", true);
+            else if (args[i].equals("--server") || args[i].equals("-s"))
+                options.put("server", true);
+            else
+                break;
+            i++;
+        }
+
+        return i;
     }
 
     private void checkNoDuplicateNumber() {
@@ -91,7 +121,10 @@ public class Parser {
     public NPuzzle parse() throws IOException {
         if (args.length == 0)
             throw new IllegalArgumentException("no files selected");
-       return parse(args[0]);
+        int countOption = getOptions();
+        if (countOption >= args.length)
+            throw new IllegalArgumentException("no files selected");
+       return parse(args[countOption]);
     }
 
     private int[] isLineValid(String line) {
@@ -112,7 +145,7 @@ public class Parser {
     }
 
     private boolean isComment(String line) {
-        return (line.isBlank() || line.isEmpty() || line.charAt(0) == '#');
+        return (line.isEmpty() || line.charAt(0) == '#');
 
     }
 

@@ -25,14 +25,13 @@ public class IDAStar implements Algo {
 
     int currentBound;
 
-    int depth = 0;
 
     int exploredNode;
 
     StateHashMap visitedNode = new StateHashMap();
 
     int nextCostBound;
-    int counter = 50;
+
 
     Comparator<State> comparator =  Comparator.comparingInt(State::getHeuristicDistance);
 
@@ -135,5 +134,13 @@ public class IDAStar implements Algo {
 
     public State getFinalState() {
         return this.finalState;
+    }
+
+    public void setGreedySearch(boolean greedySearch) {
+        this.greedySearch = greedySearch;
+    }
+
+    public void setUniformCost(boolean uniformCost) {
+        this.uniformCost = uniformCost;
     }
 }
