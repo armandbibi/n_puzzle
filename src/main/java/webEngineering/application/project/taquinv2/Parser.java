@@ -54,7 +54,7 @@ public class Parser {
         checkNoDuplicateNumber();
 
         bufferedReader.close();
-        NPuzzle puzzle =   new NPuzzle(table, ExpectedSolutionCalculator.CLASSIC.getSolution(dimension), dimension, new OptimizedManhattan());
+        NPuzzle puzzle = new NPuzzle(table, ExpectedSolutionCalculator.CLASSIC.getSolution(dimension), dimension, new OptimizedManhattan());
         puzzle.setOptions(options);
         return puzzle;
 
@@ -146,7 +146,6 @@ public class Parser {
 
     private boolean isComment(String line) {
         return (line.isEmpty() || line.charAt(0) == '#');
-
     }
 
     public String[] getArgs() {
