@@ -16,18 +16,20 @@ public class WebEngineeringApplication {
 	public static void main(String[] args) {
 
 		Parser parser = new Parser(args);
+		NPuzzle puzzle = null;
 		try {
-			NPuzzle puzzle = parser.parse();
+			puzzle = parser.parse();
 			puzzle.initAlgo();
-			State resolved = puzzle.resolve();
+			puzzle.resolve();
 			puzzle.displayConsole();
 
 		} catch (IOException e) {
-			System.out.println("wrong parameters : " + e.getMessage());
+			System.out.println("wrong parameters - file troubles: " + e.getMessage());
 		} catch (IllegalArgumentException e) {
-			System.out.println("wrong parameters: " + e.getMessage());
+			System.out.println("wrong parameters - parse troubles: " + e.getMessage());
 		}
 
-		run(WebEngineeringApplication.class, args);
+		if (args.length == 0 || (puzzle != null && puzzle.shallStartServer()))
+			run(WebEngineeringApplication.class, args);
 	}
 }

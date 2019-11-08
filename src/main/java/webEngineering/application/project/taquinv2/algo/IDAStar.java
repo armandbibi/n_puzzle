@@ -19,12 +19,19 @@ public class IDAStar implements Algo {
 
     int totalMoves;
 
+    int allState = 0;
+
+    float timeComplexity;
+
     Position[] solutionPositionLis;
 
     boolean uniformCost = false;
 
     int currentBound;
 
+    int maxBoardInMemory = 0;
+
+    int currentBoardInMemory = 0;
 
     int exploredNode;
 
@@ -65,8 +72,7 @@ public class IDAStar implements Algo {
             finalState = finalState.getPreviousState();
         }
         totalMoves = size;
-        float sec = (end - start) / 1000F; System.out.println(sec + " seconds & " + size + "shots");
-
+        timeComplexity = (end - start) / 1000F;
         return this.finalState;
     }
 
@@ -81,6 +87,10 @@ public class IDAStar implements Algo {
 
             int hash = StateHashMap.hashKey(child.getBoard());
             if (!visitedNode.containsKey(hash)) {
+                currentBoardInMemory++;
+                allState++;
+                if (currentBoardInMemory > maxBoardInMemory)
+                    maxBoardInMemory = currentBoardInMemory;
                 visitedNode.put(hash, child);
                 int h = heuristic.estimate(child, solutionPositionLis);
                 int value;
@@ -103,7 +113,6 @@ public class IDAStar implements Algo {
         Collections.sort(validChildren, comparator);
 
         for (State child: validChildren) {
-
             if (child.getHeuristicDistance() < 8 && child.getTotalDistance() > 58)
                 currentBound += 8;
             if ((child.getTotalDistance() <= currentBound || (child.getHeuristicDistance() < 8 && child.getTotalDistance() > 58)) && child.getTotalDistance() < 90) {
@@ -114,8 +123,8 @@ public class IDAStar implements Algo {
                     return result;
                 }
             }
-
             visitedNode.remove(StateHashMap.hashKey(child.getBoard()), child);
+            currentBoardInMemory--;
         }
         return null;
     }
@@ -142,5 +151,17 @@ public class IDAStar implements Algo {
 
     public void setUniformCost(boolean uniformCost) {
         this.uniformCost = uniformCost;
+    }
+
+    public float getTimeComplexity() {
+        return timeComplexity;
+    }
+
+    public int getMaxBoardInMemory() {
+        return maxBoardInMemory;
+    }
+
+    public int getAllState() {
+        return allState;
     }
 }

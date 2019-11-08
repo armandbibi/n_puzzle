@@ -93,8 +93,10 @@ public class NPuzzle {
 
     public void displayConsole() {
         State s = algo.getFinalState();
+        int count = 0;
         do {
             int[][] matrix = s.getBoardAsMatrix();
+            count++;
             for (int i = 0; i < dimension; i++) {
                 for (int j = 0; j < dimension; j++) {
                     System.out.print("| " + matrix[i][j]+ " ");
@@ -105,10 +107,18 @@ public class NPuzzle {
             System.out.println("");
             s = s.getPreviousState();
         } while (s != null);
-        System.out.println("");
+        System.out.println("resolved in " + count + "shots");
+        System.out.println("total board Seen: " + algo.getAllState());
+        System.out.println("Puzzle resolved in: " + algo.getTimeComplexity());
+        System.out.println("max board InMemory at the same time: " + algo.getMaxBoardInMemory());
+
     }
 
     public void setOptions(Map<String, Boolean> options) {
         this.options = options;
+    }
+
+    public boolean shallStartServer() {
+        return options.containsKey("server");
     }
 }
