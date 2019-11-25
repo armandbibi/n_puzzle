@@ -1,4 +1,4 @@
-package webEngineering.application.project.taquin;
+package webEngineering.application.project.taquinv2.utils;
 
 public enum ExpectedSolutionCalculator {
 

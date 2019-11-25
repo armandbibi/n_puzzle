@@ -1,6 +1,4 @@
-package webEngineering.application.project.taquin;
-
-import java.util.logging.Level;
+package webEngineering.application.project.taquinv2.utils;
 
 public enum Direction {
 	LEFT, RIGTH, UP, DOWN, NONE;

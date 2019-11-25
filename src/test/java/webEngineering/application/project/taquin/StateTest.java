@@ -2,7 +2,7 @@ package webEngineering.application.project.taquinv2;
 
 
 import org.junit.Test;
-import webEngineering.application.project.taquin.Direction;
+import webEngineering.application.project.taquinv2.utils.Direction;
 
 import static org.junit.Assert.assertEquals;
 

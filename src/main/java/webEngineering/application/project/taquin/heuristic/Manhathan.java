@@ -1,6 +1,5 @@
 package webEngineering.application.project.taquinv2.heuristic;
 
-import webEngineering.application.project.taquin.Position;
 import webEngineering.application.project.taquinv2.State;
 
 public class Manhathan implements Heuristic<State> {
