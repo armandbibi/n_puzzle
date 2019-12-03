@@ -1,7 +1,7 @@
-package webEngineering.application.project.taquinv2;
+package webEngineering.application.project.taquin;
 
-import webEngineering.application.project.taquinv2.utils.Direction;
-import webEngineering.application.project.taquinv2.utils.Position;
+import webEngineering.application.project.taquin.utils.Direction;
+import webEngineering.application.project.taquin.utils.Position;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
-package webEngineering.application.project.taquinv2.heuristic;
+package webEngineering.application.project.taquin.heuristic;
 
-import webEngineering.application.project.taquinv2.utils.Position;
-import webEngineering.application.project.taquinv2.State;
+import webEngineering.application.project.taquin.utils.Position;
+import webEngineering.application.project.taquin.State;
 
 public class OptimizedManhattan implements Heuristic<Position[]> {
 

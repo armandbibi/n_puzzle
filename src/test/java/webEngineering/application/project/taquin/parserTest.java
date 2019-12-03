@@ -1,9 +1,9 @@
-package webEngineering.application.project.taquinv2;
+package webEngineering.application.project.taquin;
 
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import webEngineering.application.project.taquinv2.utils.ExpectedSolutionCalculator;
+import webEngineering.application.project.taquin.utils.ExpectedSolutionCalculator;
 
 import javax.naming.NotContextException;
 import java.io.IOException;

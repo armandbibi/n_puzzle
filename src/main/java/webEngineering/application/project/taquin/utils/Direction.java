@@ -1,4 +1,4 @@
-package webEngineering.application.project.taquinv2.utils;
+package webEngineering.application.project.taquin.utils;
 
 public enum Direction {
 	LEFT, RIGTH, UP, DOWN, NONE;

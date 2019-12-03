@@ -1,8 +1,8 @@
-package webEngineering.application.project.taquinv2;
+package webEngineering.application.project.taquin;
 
-import webEngineering.application.project.taquinv2.utils.Position;
-import webEngineering.application.project.taquinv2.algo.IDAStar;
-import webEngineering.application.project.taquinv2.heuristic.Heuristic;
+import webEngineering.application.project.taquin.utils.Position;
+import webEngineering.application.project.taquin.algo.IDAStar;
+import webEngineering.application.project.taquin.heuristic.Heuristic;
 
 import java.util.Map;
 
@@ -37,11 +37,11 @@ public class NPuzzle {
         Position[] solutionlist = expectedState.getInternPosition();
 
         this.algo = new IDAStar(heuristic, newState, expectedState, solutionlist);
-        if (options.containsKey("greedy"))
+/*        if (options.containsKey("greedy"))
             this.algo.setGreedySearch(true);
         if (options.containsKey("uniform"))
             this.algo.setUniformCost(true);
-    }
+  */  }
 
     public State resolve() {
         return algo.resolve();

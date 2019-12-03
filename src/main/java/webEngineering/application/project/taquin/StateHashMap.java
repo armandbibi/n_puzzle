@@ -1,4 +1,4 @@
-package webEngineering.application.project.taquinv2;
+package webEngineering.application.project.taquin;
 
 import java.util.Arrays;
 import java.util.HashMap;

@@ -1,9 +1,8 @@
 package webEngineering.application;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import webEngineering.application.project.taquinv2.NPuzzle;
-import webEngineering.application.project.taquinv2.Parser;
-import webEngineering.application.project.taquinv2.State;
+import webEngineering.application.project.taquin.NPuzzle;
+import webEngineering.application.project.taquin.Parser;
 
 import java.io.IOException;
 
@@ -29,7 +28,7 @@ public class WebEngineeringApplication {
 			System.out.println("wrong parameters - parse troubles: " + e.getMessage());
 		}
 
-		if (args.length == 0 || (puzzle != null && puzzle.shallStartServer()))
+	//if (args.length == 0 || (puzzle != null && puzzle.shallStartServer()))
 			run(WebEngineeringApplication.class, args);
 	}
 }

@@ -1,6 +1,6 @@
-package webEngineering.application.project.taquinv2.algo;
+package webEngineering.application.project.taquin.algo;
 
-import webEngineering.application.project.taquinv2.State;
+import webEngineering.application.project.taquin.State;
 
 public interface Algo {
 

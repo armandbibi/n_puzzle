@@ -1,8 +1,8 @@
-package webEngineering.application.project.taquinv2;
+package webEngineering.application.project.taquin;
 
 import org.apache.tomcat.util.http.fileupload.InvalidFileNameException;
-import webEngineering.application.project.taquinv2.utils.ExpectedSolutionCalculator;
-import webEngineering.application.project.taquinv2.heuristic.OptimizedManhattan;
+import webEngineering.application.project.taquin.utils.ExpectedSolutionCalculator;
+import webEngineering.application.project.taquin.heuristic.OptimizedManhattan;
 
 import java.io.BufferedReader;
 import java.io.File;

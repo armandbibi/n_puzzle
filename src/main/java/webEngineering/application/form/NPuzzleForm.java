@@ -1,11 +1,10 @@
 package webEngineering.application.form;
 
 
-import webEngineering.application.project.taquin.algo.NPuzzleResolver;
-import webEngineering.application.project.taquinv2.heuristic.Heuristic;
-import webEngineering.application.project.taquinv2.heuristic.Manhathan;
-import webEngineering.application.project.taquinv2.heuristic.MisplacedTile;
-import webEngineering.application.project.taquinv2.heuristic.OptimizedManhattan;
+import webEngineering.application.project.taquin.heuristic.Heuristic;
+import webEngineering.application.project.taquin.heuristic.Manhathan;
+import webEngineering.application.project.taquin.heuristic.MisplacedTile;
+import webEngineering.application.project.taquin.heuristic.OptimizedManhattan;
 
 public class NPuzzleForm {
 

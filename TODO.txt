@@ -1,0 +1,7 @@
+
+ajouter option pour la fin de partie en cas de longue run et basse heuristic -> ration vitesse / precision
+
+trouver algo pour solvabilité
+
+ajouter Heuristic 3 (distance heuclidiene / conflit lineaire / pattern database)
+

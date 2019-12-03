@@ -1,8 +1,8 @@
-package webEngineering.application.project.taquinv2;
+package webEngineering.application.project.taquin;
 
 
 import org.junit.Test;
-import webEngineering.application.project.taquinv2.utils.Direction;
+import webEngineering.application.project.taquin.utils.Direction;
 
 import static org.junit.Assert.assertEquals;
 

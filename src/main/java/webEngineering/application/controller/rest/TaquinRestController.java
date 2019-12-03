@@ -2,10 +2,10 @@ package webEngineering.application.controller.rest;
 
 import org.springframework.web.bind.annotation.*;
 import webEngineering.application.form.NPuzzleForm;
-import webEngineering.application.project.taquin.Direction;
-import webEngineering.application.project.taquin.ExpectedSolutionCalculator;
-import webEngineering.application.project.taquinv2.NPuzzle;
-import webEngineering.application.project.taquinv2.State;
+import webEngineering.application.project.taquin.utils.Direction;
+import webEngineering.application.project.taquin.utils.ExpectedSolutionCalculator;
+import webEngineering.application.project.taquin.NPuzzle;
+import webEngineering.application.project.taquin.State;
 
 import java.util.ArrayList;
 import java.util.Collections;

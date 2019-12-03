@@ -1,9 +1,9 @@
-package webEngineering.application.project.taquinv2.algo;
+package webEngineering.application.project.taquin.algo;
 
-import webEngineering.application.project.taquinv2.utils.Position;
-import webEngineering.application.project.taquinv2.State;
-import webEngineering.application.project.taquinv2.StateHashMap;
-import webEngineering.application.project.taquinv2.heuristic.Heuristic;
+import webEngineering.application.project.taquin.utils.Position;
+import webEngineering.application.project.taquin.State;
+import webEngineering.application.project.taquin.StateHashMap;
+import webEngineering.application.project.taquin.heuristic.Heuristic;
 
 import java.util.*;
 
@@ -27,6 +27,8 @@ public class IDAStar implements Algo {
 
     boolean uniformCost = false;
 
+    private boolean greedySearch = false;
+
     int currentBound;
 
     int maxBoardInMemory = 0;
@@ -42,7 +44,7 @@ public class IDAStar implements Algo {
 
     Comparator<State> comparator =  Comparator.comparingInt(State::getHeuristicDistance);
 
-    private boolean greedySearch = false;
+
 
     public IDAStar(Heuristic heuristic, State initalState, State expectedState, Position[] solutionPositionLis) {
         this.heuristic = heuristic;
