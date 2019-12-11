@@ -1,6 +1,7 @@
 package webEngineering.application.project.taquin;
 
 import org.apache.tomcat.util.http.fileupload.InvalidFileNameException;
+import webEngineering.application.project.taquin.heuristic.EuclidianDist;
 import webEngineering.application.project.taquin.utils.ExpectedSolutionCalculator;
 import webEngineering.application.project.taquin.heuristic.OptimizedManhattan;
 

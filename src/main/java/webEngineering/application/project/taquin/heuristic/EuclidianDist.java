@@ -15,8 +15,8 @@ public class EuclidianDist implements Heuristic<Position[]> {
             for (int j = 0; j < size; j++) {
                 int piece = currentState.find(i, j);
                 Position p  = solutionPositionList[piece];
-            //    int toAdd = sqrt( ((j - p.getY()) * (j - p.getX())) + ((i - p.getY()) * (i - p.getY())));
-          //      distance +=  toAdd;
+                //int toAdd = Math.sqrt( ((j - p.getY()) * (j - p.getX())) + ((i - p.getY()) * (i - p.getY())));
+                //distance +=  toAdd;
             }
         }
         return distance;
