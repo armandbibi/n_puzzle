@@ -2,6 +2,9 @@ package webEngineering.application.project.taquin.heuristic;
 
 import webEngineering.application.project.taquin.State;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HeuristicHandler implements Heuristic<State> {
 
     List<Heuristic> heuristicList = new ArrayList<>();
