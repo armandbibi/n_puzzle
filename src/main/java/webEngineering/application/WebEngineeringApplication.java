@@ -28,8 +28,10 @@ public class WebEngineeringApplication {
 
 		} catch (IOException e) {
 			System.out.println("wrong parameters - file troubles: " + e.getMessage());
+			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
 			System.out.println("wrong parameters - parse troubles: " + e.getMessage());
+			e.printStackTrace();
 		}
 
 		if (server)
