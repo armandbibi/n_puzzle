@@ -1,6 +1,7 @@
 package webEngineering.application.form;
 
 
+import webEngineering.application.project.taquin.SolvabilityChecker;
 import webEngineering.application.project.taquin.State;
 import webEngineering.application.project.taquin.heuristic.Heuristic;
 import webEngineering.application.project.taquin.heuristic.Manhathan;
@@ -39,6 +40,8 @@ public class NPuzzleForm {
     }
 
     public int[][] getInitialBoard() {
+        if (!SolvabilityChecker.isSolvable(initialBoard))
+            throw new IllegalArgumentException("board is not solvable");
         return initialBoard;
     }
 

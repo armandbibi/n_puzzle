@@ -58,6 +58,8 @@ public class Parser {
 
         bufferedReader.close();
         setOptions();
+        if (!SolvabilityChecker.isSolvable(table))
+            throw new IllegalArgumentException("the board is not solvable");
         NPuzzle puzzle = new NPuzzle(table, ExpectedSolutionCalculator.CLASSIC.getSolution(dimension), dimension, heuristic);
         puzzle.setOptions(options);
         return puzzle;
@@ -66,7 +68,7 @@ public class Parser {
 
     private void setOptions() {
 
-        State state =new State((table));
+        State state =new State(ExpectedSolutionCalculator.CLASSIC.getSolution(dimension));
         String option = args[heuristicDefinition];
         if (option.endsWith("euclidian"))
             heuristic = new EuclidianDist();
