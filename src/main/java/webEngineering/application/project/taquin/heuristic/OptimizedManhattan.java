@@ -5,8 +5,15 @@ import webEngineering.application.project.taquin.State;
 
 public class OptimizedManhattan implements Heuristic<Position[]> {
 
+    public OptimizedManhattan(Position[] solutionPositionList) {
+        this.solutionPositionList = solutionPositionList;
+    }
+
+    Position[] solutionPositionList;
+
+
     @Override
-    public int estimate(State currentState, Position[] solutionPositionList) {
+    public int estimate(State currentState, Position[] solutionPositionLise) {
 
         int size = currentState.getDimension();
         int distance = 0;

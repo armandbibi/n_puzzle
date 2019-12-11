@@ -1,6 +1,7 @@
 package webEngineering.application.project.taquin.heuristic;
 
 import webEngineering.application.project.taquin.State;
+import webEngineering.application.project.taquin.utils.Position;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +10,9 @@ public class HeuristicHandler implements Heuristic<State> {
 
     List<Heuristic> heuristicList = new ArrayList<>();
 
-    public HeuristicHandler ()
+    public HeuristicHandler (State expectedState)
     {
-        heuristicList.add(new OptimizedManhattan());
+        heuristicList.add(new OptimizedManhattan(expectedState.getInternPosition()));
         heuristicList.add(new MisplacedTile());
         heuristicList.add(new EuclidianDist());
     }

@@ -36,6 +36,16 @@ public class State implements Cloneable {
         this.direction = Direction.NONE;
     }
 
+    public State(int[][] table) {
+        this.dimension = table.length;
+        this.previousState = null;
+        totalDistance = 0;
+        heuristicDistance = -1;
+        realDistance = 0;
+        this.direction = Direction.NONE;
+        setBoardFromMatrix(table);
+    }
+
     private int pick(int x, int y) {
 
         int mask = 0b11111 << (x * 5);

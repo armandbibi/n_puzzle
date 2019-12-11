@@ -1,9 +1,10 @@
 package webEngineering.application.project.taquin;
 
 import org.apache.tomcat.util.http.fileupload.InvalidFileNameException;
+import webEngineering.application.project.taquin.heuristic.*;
 import webEngineering.application.project.taquin.utils.ExpectedSolutionCalculator;
-import webEngineering.application.project.taquin.heuristic.OptimizedManhattan;
 
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -19,6 +20,10 @@ public class Parser {
     public int[][] table;
 
     private int dimension;
+
+    private Heuristic heuristic;
+
+    int heuristicDefinition;
 
     Map<String, Boolean> options;
 
@@ -52,10 +57,25 @@ public class Parser {
         checkNoDuplicateNumber();
 
         bufferedReader.close();
-        NPuzzle puzzle = new NPuzzle(table, ExpectedSolutionCalculator.CLASSIC.getSolution(dimension), dimension, new OptimizedManhattan());
+        setOptions();
+        NPuzzle puzzle = new NPuzzle(table, ExpectedSolutionCalculator.CLASSIC.getSolution(dimension), dimension, heuristic);
         puzzle.setOptions(options);
         return puzzle;
 
+    }
+
+    private void setOptions() {
+
+        State state =new State((table));
+        String option = args[heuristicDefinition];
+        if (option.endsWith("euclidian"))
+            heuristic = new EuclidianDist();
+        else if (option.endsWith("manhathan"))
+            heuristic = new Manhathan();
+        else if (option.endsWith("misplaced_tiles"))
+            heuristic = new MisplacedTile();
+        else
+            heuristic = new OptimizedManhattan(state.getInternPosition());
     }
 
     private int getOptions() {
@@ -63,13 +83,19 @@ public class Parser {
 
         int i;
         i = 0;
+        String option;
+
         while (i < args.length) {
-            if (args[i].equals("--greedy") || args[i].equals("-g"))
+            option = args[i];
+            if (option.equals("--greedy") || option.equals("-g"))
                 options.put("greedy", true);
-            else if (args[i].equals("--uniform") || args[i].equals("-u"))
+            else if (option.equals("--uniform") || option.equals("-u"))
                 options.put("uniform", true);
-            else if (args[i].equals("--server") || args[i].equals("-s"))
+            else if (option.equals("--server") || option.equals("-s"))
                 options.put("server", true);
+            else if (option.startsWith("--heuristic:") || option.startsWith("-h")) {
+                heuristicDefinition = i;
+            }
             else
                 break;
             i++;

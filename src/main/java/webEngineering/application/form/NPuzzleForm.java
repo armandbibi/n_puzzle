@@ -1,6 +1,7 @@
 package webEngineering.application.form;
 
 
+import webEngineering.application.project.taquin.State;
 import webEngineering.application.project.taquin.heuristic.Heuristic;
 import webEngineering.application.project.taquin.heuristic.Manhathan;
 import webEngineering.application.project.taquin.heuristic.MisplacedTile;
@@ -28,7 +29,7 @@ public class NPuzzleForm {
         else if (heuristicFunction.equals("misplaced tiles"))
             return new MisplacedTile();
         else if (heuristicFunction.equals("linear conflicts"))
-            return new OptimizedManhattan();
+            return new OptimizedManhattan(new State(expectedBoard).getInternPosition());
         else
             return null;
     }
