@@ -14,6 +14,10 @@ public class WebEngineeringApplication {
 
 	public static void main(String[] args) {
 
+		boolean server = false;
+		if (args[0] == "-server")
+			server = true;
+
 		Parser parser = new Parser(args);
 		NPuzzle puzzle = null;
 		try {
@@ -28,7 +32,7 @@ public class WebEngineeringApplication {
 			System.out.println("wrong parameters - parse troubles: " + e.getMessage());
 		}
 
-	//if (args.length == 0 || (puzzle != null && puzzle.shallStartServer()))
+		if (server)
 			run(WebEngineeringApplication.class, args);
 	}
 }
