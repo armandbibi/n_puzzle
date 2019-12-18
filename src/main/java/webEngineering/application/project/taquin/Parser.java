@@ -35,7 +35,7 @@ public class Parser {
     private NPuzzle parse(String file) throws IOException, InvalidFileNameException, IllegalArgumentException {
 
         if (args.length == 0) throw new IllegalArgumentException("no input...");
-        
+
         if (file == null || file.isEmpty()) throw new IllegalArgumentException("name of file is empty or null");
         File files = new File(file);
         BufferedReader bufferedReader;
@@ -47,12 +47,14 @@ public class Parser {
         String line;
         int i = 0;
         while ((line = bufferedReader.readLine()) != null) {
-            if (i == dimension)
+            if (i == dimension) {
                 throw new IllegalArgumentException("there are to much line compared to the dimension");
+            }
             int[] listOfInt = isLineValid(line);
             if (listOfInt != null)
                 table[i++] = listOfInt;
         }
+
         checkTableIFullAndCompleted();
         checkNoDuplicateNumber();
 
