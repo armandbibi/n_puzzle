@@ -4,7 +4,6 @@ import org.apache.tomcat.util.http.fileupload.InvalidFileNameException;
 import webEngineering.application.project.taquin.heuristic.*;
 import webEngineering.application.project.taquin.utils.ExpectedSolutionCalculator;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -160,9 +159,12 @@ public class Parser {
             return null;
         else {
             String[] separatedLine = line.split("#");
+            for (String s: separatedLine) {
+                s.trim();
+            }
             try {
-                int[] tableOfNumber = Stream.of(separatedLine[0].split("[ ]+"))
-                        .mapToInt(Integer::parseInt).toArray();
+                int[] tableOfNumber = Stream.of((separatedLine[0].split("[ ]+")))
+                        .map(String :: trim).filter(item -> !item.isEmpty()).mapToInt(Integer::parseInt).toArray();
 
                 if (tableOfNumber.length != dimension) throw new IllegalArgumentException("dimension is not respected for the line : " + line);
                 return tableOfNumber;

@@ -14,9 +14,7 @@ public class WebEngineeringApplication {
 
 	public static void main(String[] args) {
 
-		boolean server = false;
-		if (args[0] == "-server")
-			server = true;
+		boolean server = args[0] == "-server";
 
 		Parser parser = new Parser(args);
 		NPuzzle puzzle = null;
@@ -28,8 +26,10 @@ public class WebEngineeringApplication {
 
 		} catch (IOException e) {
 			System.out.println("wrong parameters - file troubles: " + e.getMessage());
+			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
 			System.out.println("wrong parameters - parse troubles: " + e.getMessage());
+			e.printStackTrace();
 		}
 
 		if (server)

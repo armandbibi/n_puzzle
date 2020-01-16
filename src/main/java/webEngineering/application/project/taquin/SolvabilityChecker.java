@@ -6,6 +6,7 @@ import java.io.Console;
 import java.util.Vector;
 
 public class SolvabilityChecker {
+
     static int[] snailTableUnfolder(int[][] board) {
         int[] unfoldTable = new int[(board.length * board.length) - 1];
         boolean goRight = true;
@@ -76,10 +77,9 @@ public class SolvabilityChecker {
     }
 
     static boolean calculateInversion(int[][] board) {
-        int res = 0;
-        int[] unfoldTable = new int[(board.length * board.length) - 1];
 
-        unfoldTable = snailTableUnfolder(board);
+        int res = 0;
+        int[] unfoldTable = snailTableUnfolder(board);
 
         for (int i = 0; i < unfoldTable.length; i++) {
             res += tileInversion(i, unfoldTable);
