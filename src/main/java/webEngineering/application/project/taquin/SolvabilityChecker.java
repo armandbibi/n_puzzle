@@ -112,10 +112,16 @@ public class SolvabilityChecker {
         boolean inversionEven = calculateInversion(board);
         boolean blankOnEvenRow = calculateBlankPos(board);
 
+        // ok for unsolvable 3 and 4
+        //boolean solution1 = (dimensionEven && inversionEven);
+        //boolean solution2 = (dimensionEven && !blankOnEvenRow && inversionEven);
+        //boolean solution3 = (dimensionEven && blankOnEvenRow && !inversionEven);
+
         boolean solution1 = (!dimensionEven && inversionEven);
         boolean solution2 = (dimensionEven && !blankOnEvenRow && inversionEven);
         boolean solution3 = (dimensionEven && blankOnEvenRow && !inversionEven);
 
-        return (solution1 || solution2 || solution3);
+        boolean result = (solution1 || solution2 || solution3);
+        return dimensionEven ? result : !result;
     }
 }
