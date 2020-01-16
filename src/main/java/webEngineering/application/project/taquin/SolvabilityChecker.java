@@ -20,7 +20,7 @@ public class SolvabilityChecker {
         int botBound = board.length;
 
         int index = 0;
-        while (index < (board.length * board.length) - 1) {
+        /*while (index < (board.length * board.length) - 1) {
             if (goRight) {
                 for (int j = leftBound + 1; j < rightBound; j++) {
                     if (board[topBound + 1][j] != 0) {
@@ -62,6 +62,14 @@ public class SolvabilityChecker {
                 goRight = true;
                 leftBound++;
             }
+        }*/
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board.length; j++) {
+                if (board[i][j] != 0) {
+                    unfoldTable[index] = board[i][j];
+                    index++;
+                }
+            }
         }
         return (unfoldTable);
     }
@@ -100,7 +108,7 @@ public class SolvabilityChecker {
 
     public static boolean isSolvable (int[][] board)
     {
-        boolean dimensionEven = (board.length % 2 == 0) ? true : false;
+        boolean dimensionEven = board.length % 2 == 0;
         boolean inversionEven = calculateInversion(board);
         boolean blankOnEvenRow = calculateBlankPos(board);
 
