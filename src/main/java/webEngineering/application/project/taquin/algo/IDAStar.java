@@ -41,7 +41,6 @@ public class IDAStar implements Algo {
 
     int nextCostBound;
 
-
     Comparator<State> comparator =  Comparator.comparingInt(State::getHeuristicDistance);
 
 
@@ -138,14 +137,6 @@ public class IDAStar implements Algo {
 
     public State getFinalState() {
         return this.finalState;
-    }
-
-    public void setGreedySearch(boolean greedySearch) {
-        this.greedySearch = greedySearch;
-    }
-
-    public void setUniformCost(boolean uniformCost) {
-        this.uniformCost = uniformCost;
     }
 
     public float getTimeComplexity() {

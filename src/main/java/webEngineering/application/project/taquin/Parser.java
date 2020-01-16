@@ -4,15 +4,12 @@ import org.apache.tomcat.util.http.fileupload.InvalidFileNameException;
 import webEngineering.application.project.taquin.heuristic.*;
 import webEngineering.application.project.taquin.utils.ExpectedSolutionCalculator;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Parser {
@@ -37,7 +34,7 @@ public class Parser {
     private NPuzzle parse(String file) throws IOException, InvalidFileNameException, IllegalArgumentException {
 
         if (args.length == 0) throw new IllegalArgumentException("no input...");
-        
+
         if (file == null || file.isEmpty()) throw new IllegalArgumentException("name of file is empty or null");
         File files = new File(file);
         BufferedReader bufferedReader;
@@ -49,12 +46,14 @@ public class Parser {
         String line;
         int i = 0;
         while ((line = bufferedReader.readLine()) != null) {
-            if (i == dimension)
+            if (i == dimension) {
                 throw new IllegalArgumentException("there are to much line compared to the dimension");
+            }
             int[] listOfInt = isLineValid(line);
             if (listOfInt != null)
                 table[i++] = listOfInt;
         }
+
         checkTableIFullAndCompleted();
         checkNoDuplicateNumber();
 
