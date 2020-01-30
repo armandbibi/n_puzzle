@@ -111,7 +111,7 @@ public class IDAStar implements Algo {
         }
 
         for (State child: validChildren) {
-            if ((child.getTotalDistance() <= currentBound || (child.getHeuristicDistance() < 8 && child.getTotalDistance() > 58)) && child.getTotalDistance() < 90) {
+            if (child.getTotalDistance() <= currentBound  && child.getTotalDistance() < 90) {
                 State result = depthFirstSearch(child, realBound + 1);
                 if (result != null) {
                     return result;

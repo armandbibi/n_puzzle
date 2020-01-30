@@ -14,10 +14,11 @@ public class WebEngineeringApplication {
 
 	public static void main(String[] args) {
 
-		boolean server = args[0] == "-server";
+		boolean server = (args.length == 0 ) ? false : args[0].equals("server");
 
 		Parser parser = new Parser(args);
 		NPuzzle puzzle = null;
+		if (!server)
 		try {
 			puzzle = parser.parse();
 			puzzle.initAlgo();
